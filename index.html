@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<!--
+  守一工坊 · 品牌官网（单文件版）
+  ─────────────────────────────────────────────
+  · 单 HTML 文件：无外部请求、无统计、无 Cookie、无字体 CDN —— 与三律一致
+  · 品牌名替换：全局搜索「守一工坊」与「守一」替换为最终品牌名
+  · 邮箱/域名占位：hi@shouyigongfang.cn —— 域名定稿后替换
+  · 备案号占位：页脚「ICP备XXXXXXXX号」—— 备案下来后替换
+  · 部署：GitHub Pages（见 README.md）
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="守一工坊——一个人的软件工坊。绝对单机、零网络权限、永久可用。所有承诺可自行验证。">
+<title>守一工坊 — 绝对单机 · 零网络权限 · 永久可用</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23c2402a'/%3E%3Ctext x='32' y='30' font-size='26' text-anchor='middle' fill='%23fff' font-family='KaiTi,STKaiti,serif' font-weight='bold'%3E守%3C/text%3E%3Ctext x='32' y='56' font-size='26' text-anchor='middle' fill='%23fff' font-family='KaiTi,STKaiti,serif' font-weight='bold'%3E一%3C/text%3E%3C/svg%3E">
+<style>
+/* ═══════════════ 设计令牌 ═══════════════ */
+:root{
+  --bg:#0a0c10; --bg2:#0d1016; --card:#12161d; --card2:#151a22;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --text:#eceae4; --muted:#a3a9b3; --faint:#6d7480;
+  --accent:#e2583e; --accent-strong:#ff6f52; --accent-soft:rgba(226,88,62,.12);
+  --ok:#4ade80; --ok-soft:rgba(74,222,128,.10);
+  --amber:#f5c04e; --amber-soft:rgba(245,192,78,.10);
+  --serif:"Kaiti SC","STKaiti","KaiTi","DFKai-SB",serif;
+  --sans:"HarmonyOS Sans SC","MiSans","PingFang SC","Microsoft YaHei UI",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono","JetBrains Mono",Consolas,"SF Mono",monospace;
+  --radius:18px;
+}
+[data-theme="light"]{
+  --bg:#f6f3ec; --bg2:#efeae0; --card:#fffdf8; --card2:#faf6ee;
+  --line:rgba(30,26,20,.10); --line2:rgba(30,26,20,.18);
+  --text:#211e19; --muted:#5f5c55; --faint:#8f8b82;
+  --accent:#b8402a; --accent-strong:#a33421; --accent-soft:rgba(184,64,42,.08);
+  --ok:#1a7f4a; --ok-soft:rgba(26,127,74,.09);
+  --amber:#9a6b0a; --amber-soft:rgba(154,107,10,.10);
+}
+/* ═══════════════ 基础 ═══════════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;transition:background .35s ease,color .35s ease;
+}
+/* 全局噪点 */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* ═══════════════ 导航 ═══════════════ */
+nav{
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:color-mix(in srgb,var(--bg) 72%,transparent);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.02em}
+.brand .seal{width:34px;height:34px;flex:none;box-shadow:0 2px 10px rgba(194,64,42,.35)}
+.brand small{font-weight:400;color:var(--faint);font-size:12px;font-family:var(--mono);letter-spacing:.12em}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{
+  padding:7px 14px;border-radius:99px;font-size:14px;color:var(--muted);
+  transition:all .25s;
+}
+.nav-links a:hover{color:var(--text);background:var(--card)}
+.theme-btn{
+  width:36px;height:36px;border-radius:99px;border:1px solid var(--line);
+  background:var(--card);color:var(--muted);cursor:pointer;font-size:15px;
+  display:flex;align-items:center;justify-content:center;transition:all .25s;margin-left:8px;
+}
+.theme-btn:hover{color:var(--text);border-color:var(--line2)}
+@media(max-width:720px){.nav-links a:not(.theme-btn){display:none}}
+
+/* ═══════════════ Hero ═══════════════ */
+.hero{position:relative;padding:110px 0 70px;text-align:center;overflow:hidden}
+.hero::before{ /* 光晕 */
+  content:"";position:absolute;top:-260px;left:50%;transform:translateX(-50%);
+  width:820px;height:520px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(226,88,62,.13),transparent 62%);
+}
+.hero .seal-big{width:76px;height:76px;margin:0 auto 30px;filter:drop-shadow(0 8px 28px rgba(194,64,42,.4));animation:sealIn 1s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes sealIn{from{opacity:0;transform:scale(.6) rotate(-8deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+.eyebrow{
+  font-family:var(--mono);font-size:13px;letter-spacing:.32em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:22px;
+}
+.hero h1{
+  font-size:clamp(46px,8.5vw,86px);font-weight:800;letter-spacing:.06em;line-height:1.15;
+  font-family:var(--serif);
+}
+.hero .tagline{
+  margin:18px auto 0;max-width:560px;color:var(--muted);font-size:clamp(15px,2.2vw,18px);
+}
+.hero .tagline b{color:var(--text);font-weight:600}
+.law-badges{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:38px 0 8px}
+.law-badge{
+  display:flex;align-items:center;gap:8px;padding:9px 18px;border-radius:99px;
+  border:1px solid var(--line2);background:var(--card);font-size:14px;color:var(--muted);
+  transition:all .3s;
+}
+.law-badge:hover{border-color:var(--accent);color:var(--text);transform:translateY(-2px)}
+.law-badge svg{width:15px;height:15px;stroke:var(--accent);flex:none}
+.hero-meta{
+  margin-top:30px;font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.04em;
+}
+.hero-meta em{color:var(--ok);font-style:normal}
+
+/* 跑马灯（永不做关键词） */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;padding:13px 0;margin-top:56px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+}
+.marquee-track{display:flex;gap:44px;width:max-content;animation:scroll 36s linear infinite;font-family:var(--mono);font-size:13px;color:var(--faint);letter-spacing:.08em}
+.marquee-track span{white-space:nowrap}
+.marquee-track i{color:var(--accent);font-style:normal;margin-right:10px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ═══════════════ 章节骨架 ═══════════════ */
+section{padding:92px 0}
+.sec-head{max-width:640px;margin-bottom:52px}
+.sec-head .num{font-family:var(--mono);color:var(--accent);font-size:13px;letter-spacing:.28em;display:block;margin-bottom:14px}
+.sec-head h2{font-size:clamp(28px,4.5vw,40px);font-weight:750;letter-spacing:.03em;line-height:1.3;font-family:var(--serif)}
+.sec-head p{color:var(--muted);margin-top:14px;font-size:15.5px}
+
+/* ═══════════════ 三律 Bento ═══════════════ */
+.laws-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.laws-grid{grid-template-columns:1fr}}
+.law-card{
+  position:relative;background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px 30px;
+  transition:transform .35s,border-color .35s;overflow:hidden;
+}
+.law-card:hover{transform:translateY(-5px);border-color:var(--line2)}
+.law-card .ghost{
+  position:absolute;top:6px;right:14px;font-family:var(--serif);font-size:96px;
+  color:var(--text);opacity:.045;pointer-events:none;line-height:1;
+}
+.law-card .law-no{
+  font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.24em;
+  border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);
+  background:var(--accent-soft);border-radius:99px;padding:4px 12px;display:inline-block;margin-bottom:20px;
+}
+.law-card h3{font-size:21px;font-weight:700;letter-spacing:.04em;margin-bottom:4px}
+.law-card .law-sub{font-size:13px;color:var(--accent);font-family:var(--mono);margin-bottom:16px;letter-spacing:.06em}
+.law-card p{color:var(--muted);font-size:14.5px;margin-bottom:10px}
+.law-verify{
+  margin-top:18px;padding:14px 16px;border-radius:12px;background:var(--bg2);
+  border:1px dashed var(--line2);font-size:13px;color:var(--muted);
+}
+.law-verify b{color:var(--ok);font-weight:600}
+.law-verify::before{content:"如何验证";display:block;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.2em;margin-bottom:6px}
+
+/* 权限清单模拟窗 */
+.perm-box{
+  margin-top:18px;border-radius:12px;border:1px solid var(--line2);background:var(--bg2);
+  font-family:var(--mono);font-size:12.5px;overflow:hidden;
+}
+.perm-box .perm-title{
+  padding:9px 14px;border-bottom:1px solid var(--line);color:var(--faint);
+  display:flex;align-items:center;gap:8px;letter-spacing:.06em;
+}
+.perm-box .perm-title .dots{display:flex;gap:5px}
+.perm-box .perm-title .dots i{width:9px;height:9px;border-radius:50%;background:var(--line2)}
+.perm-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--line);color:var(--muted)}
+.perm-row:last-child{border-bottom:0}
+.perm-row .yes{color:var(--ok)}
+.perm-row .no{color:var(--accent-strong);font-weight:600}
+
+/* ═══════════════ 自证教程 ═══════════════ */
+.verify-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:900px){.verify-grid{grid-template-columns:1fr}}
+.verify-card{
+  background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);
+  border-radius:var(--radius);padding:32px 30px;
+}
+.verify-card h3{font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.verify-card h3 .plat{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--faint);border:1px solid var(--line2);padding:3px 9px;border-radius:99px;font-weight:400}
+.verify-card>p{color:var(--muted);font-size:13.5px;margin-bottom:22px}
+.steps{list-style:none;counter-reset:step}
+.steps li{
+  counter-increment:step;position:relative;padding:0 0 20px 46px;font-size:14.5px;color:var(--muted);
+}
+.steps li::before{
+  content:counter(step,decimal-leading-zero);position:absolute;left:0;top:1px;
+  width:30px;height:30px;border-radius:99px;border:1px solid var(--line2);background:var(--bg2);
+  font-family:var(--mono);font-size:11px;color:var(--accent);display:flex;align-items:center;justify-content:center;
+}
+.steps li:not(:last-child)::after{
+  content:"";position:absolute;left:15px;top:34px;bottom:2px;width:1px;background:var(--line);
+}
+.steps li b{color:var(--text);font-weight:600}
+.why-card{
+  margin-top:18px;border-radius:var(--radius);padding:28px 30px;
+  background:linear-gradient(120deg,var(--accent-soft),transparent 70%);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+}
+.why-card h4{font-size:15px;margin-bottom:8px;letter-spacing:.03em}
+.why-card h4::before{content:"※ ";color:var(--accent)}
+.why-card p{color:var(--muted);font-size:14px}
+.bounty{
+  margin-top:18px;border-radius:var(--radius);padding:34px 36px;text-align:center;position:relative;overflow:hidden;
+  background:var(--card);border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);
+}
+.bounty::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 0%,rgba(226,88,62,.16),transparent 65%);
+}
+.bounty .amount{font-family:var(--mono);font-size:clamp(34px,5vw,46px);font-weight:800;color:var(--accent-strong);letter-spacing:.02em}
+.bounty h4{font-size:16px;margin:6px 0 8px;letter-spacing:.14em}
+.bounty p{color:var(--muted);font-size:13.5px;max-width:480px;margin:0 auto}
+.bounty .bounty-note{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em}
+
+/* ═══════════════ 永不做清单 ═══════════════ */
+.never-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+@media(max-width:760px){.never-grid{grid-template-columns:1fr}}
+.never-item{
+  display:flex;gap:16px;align-items:baseline;padding:22px 26px;background:var(--card);
+  border-bottom:1px solid var(--line);transition:background .3s;
+}
+.never-item:nth-child(odd){border-right:1px solid var(--line)}
+.never-item:hover{background:var(--card2)}
+.never-item .x{font-family:var(--mono);color:var(--accent);font-size:14px;flex:none}
+.never-item .ni-no{font-family:var(--mono);font-size:11px;color:var(--faint);flex:none}
+.never-item div b{display:block;font-size:15px;font-weight:650;letter-spacing:.02em}
+.never-item div span{font-size:12.5px;color:var(--faint)}
+
+/* ═══════════════ 应用 ═══════════════ */
+.apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.apps-grid{grid-template-columns:1fr}}
+.app-card{
+  border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:var(--card);
+  transition:all .35s;position:relative;
+}
+.app-card:hover{transform:translateY(-4px);border-color:var(--line2)}
+.app-card .app-icon{
+  width:52px;height:52px;border-radius:14px;background:var(--accent-soft);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+  display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:24px;
+}
+.app-card h3{font-size:17.5px;font-weight:700;letter-spacing:.03em}
+.app-card .app-meta{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:6px 0 12px}
+.app-card p{font-size:13.5px;color:var(--muted)}
+.status-pill{
+  display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:4px 13px;border-radius:99px;margin-top:16px;
+  font-family:var(--mono);letter-spacing:.08em;
+}
+.status-pill::before{content:"";width:7px;height:7px;border-radius:50%}
+.status-dev{background:var(--amber-soft);color:var(--amber)}.status-dev::before{background:var(--amber)}
+.status-soon{background:var(--bg2);color:var(--faint);border:1px solid var(--line)}.status-soon::before{background:var(--faint)}
+.app-card.ghost{
+  border-style:dashed;background:transparent;display:flex;flex-direction:column;justify-content:center;text-align:center;
+}
+.app-card.ghost:hover{transform:none}
+.app-card.ghost p{color:var(--faint)}
+.app-card.ghost .mono{font-size:12px;letter-spacing:.2em;color:var(--faint)}
+
+/* ═══════════════ 维护面板 ═══════════════ */
+.panel-wrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card)}
+.panel-bar{
+  display:flex;align-items:center;gap:10px;padding:13px 22px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;
+}
+.panel-bar .live{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);animation:pulse 2.4s infinite}
+@keyframes pulse{50%{opacity:.4}}
+table.maint{width:100%;border-collapse:collapse;font-size:14px}
+table.maint th{
+  text-align:left;font-family:var(--mono);font-weight:400;font-size:11.5px;color:var(--faint);
+  letter-spacing:.16em;padding:12px 22px;border-bottom:1px solid var(--line);
+}
+table.maint td{padding:16px 22px;border-bottom:1px solid var(--line);color:var(--muted)}
+table.maint tr:last-child td{border-bottom:0}
+table.maint td:first-child{color:var(--text);font-weight:600;letter-spacing:.02em}
+.st{font-family:var(--mono);font-size:12px;display:inline-flex;align-items:center;gap:7px}
+.st::before{content:"";width:7px;height:7px;border-radius:50%}
+.st.active{color:var(--ok)}.st.active::before{background:var(--ok)}
+.st.fix{color:var(--amber)}.st.fix::before{background:var(--amber)}
+.st.eol{color:var(--faint)}.st.eol::before{background:var(--faint)}
+.st.dev{color:var(--accent-strong)}.st.dev::before{background:var(--accent-strong)}
+.panel-legend{
+  margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.04em;
+  display:flex;flex-wrap:wrap;gap:20px;
+}
+
+/* ═══════════════ 条款 ═══════════════ */
+.clause-card{
+  border:1px solid var(--line2);border-radius:var(--radius);padding:44px 46px;position:relative;
+  background:linear-gradient(180deg,var(--card2),var(--card));
+}
+@media(max-width:720px){.clause-card{padding:30px 24px}}
+.clause-card::before{
+  content:"保";position:absolute;top:18px;right:26px;font-family:var(--serif);font-size:74px;
+  opacity:.05;pointer-events:none;
+}
+.clause-card h3{font-family:var(--serif);font-size:22px;letter-spacing:.1em;margin-bottom:6px}
+.clause-card .clause-sub{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.16em;margin-bottom:26px}
+.clause-item{display:flex;gap:20px;padding:16px 0;border-top:1px solid var(--line)}
+.clause-item .cno{font-family:var(--mono);color:var(--accent);font-size:13px;flex:none;padding-top:2px}
+.clause-item p{font-size:14.5px;color:var(--muted)}
+.clause-item b{color:var(--text);font-weight:600}
+.clause-seal{
+  position:absolute;bottom:26px;right:34px;width:58px;height:58px;opacity:.85;transform:rotate(6deg);
+}
+
+/* ═══════════════ 关于 ═══════════════ */
+.about-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:44px;align-items:start}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+.about-text p{color:var(--muted);font-size:15px;margin-bottom:16px}
+.about-text p b{color:var(--text)}
+.about-facts{
+  border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:28px;
+  font-family:var(--mono);font-size:13px;
+}
+.about-facts .fact{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line);color:var(--muted)}
+.about-facts .fact:last-child{border-bottom:0}
+.about-facts .fact b{color:var(--text);font-weight:500}
+.about-facts .mail{margin-top:18px;text-align:center}
+.about-facts .mail a{
+  display:block;padding:11px;border-radius:10px;border:1px solid var(--line2);color:var(--accent);
+  letter-spacing:.04em;transition:all .25s;
+}
+.about-facts .mail a:hover{border-color:var(--accent);background:var(--accent-soft)}
+
+/* ═══════════════ 页脚 ═══════════════ */
+footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--bg2)}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:36px;margin-bottom:40px}
+@media(max-width:860px){.foot-grid{grid-template-columns:1fr}}
+.foot-brand{display:flex;gap:14px;align-items:flex-start}
+.foot-brand .seal{width:40px;height:40px;flex:none}
+.foot-brand p{font-size:13px;color:var(--faint)}
+footer h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;color:var(--faint);margin-bottom:16px;font-weight:400}
+footer ul{list-style:none}
+footer ul a{font-size:14px;color:var(--muted);display:inline-block;padding:4px 0;transition:color .25s}
+footer ul a:hover{color:var(--text)}
+.foot-note{font-size:12.5px;color:var(--faint);line-height:1.9}
+.foot-note em{color:var(--ok);font-style:normal}
+.foot-bottom{
+  border-top:1px solid var(--line);padding-top:26px;display:flex;flex-wrap:wrap;gap:14px;
+  justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.05em;
+}
+
+/* ═══════════════ 入场动画 ═══════════════ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 导航 ═══════════ -->
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="#top" aria-label="守一工坊">
+      <svg class="seal" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#c2402a"/><text x="32" y="29" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">守</text><text x="32" y="55" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">一</text></svg>
+      <span>守一工坊</span><small>SOLO&nbsp;WORKSHOP</small>
+    </a>
+    <div class="nav-links">
+      <a href="#laws">三律</a>
+      <a href="#verify">自证</a>
+      <a href="#apps">应用</a>
+      <a href="#clause">条款</a>
+      <button class="theme-btn" id="themeBtn" aria-label="切换深浅色" title="切换深浅色">◐</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ Hero ═══════════ -->
+<header class="hero" id="top">
+  <div class="container">
+    <svg class="seal-big" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#c2402a"/><text x="32" y="29" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">守</text><text x="32" y="55" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">一</text></svg>
+    <p class="eyebrow">一个人的软件工坊 · EST. 2026</p>
+    <h1>守一工坊</h1>
+    <p class="tagline">我做每一个工具，都在<b>你自己的设备</b>上运行——<br>不联网、不订阅、不采集。<b>所有承诺，可自行验证。</b></p>
+    <div class="law-badges">
+      <span class="law-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><circle cx="7" cy="7.5" r=".5" fill="currentColor"/><circle cx="7" cy="16.5" r=".5" fill="currentColor"/></svg>绝对单机 · 数据即文件</span>
+      <span class="law-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5C5 5.5 8.4 4 12 4s7 1.5 10 4.5"/><path d="M5.5 12.5C7.6 10.8 9.7 10 12 10s4.4.8 6.5 2.5"/><path d="M9 16.5c1-.8 2-1.2 3-1.2s2 .4 3 1.2"/><line x1="3" y1="3" x2="21" y2="21"/></svg>零网络权限 · 权限列表可查</span>
+      <span class="law-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 0 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>永久可用 · 开源保底</span>
+    </div>
+    <p class="hero-meta">本站亦践行三律：<em>无统计 · 无 Cookie · 无外部请求 · 单 HTML 文件</em> — 右键「查看源代码」即可验证</p>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span><i>✕</i>不订阅</span><span><i>✕</i>不联网</span><span><i>✕</i>不采集数据</span><span><i>✕</i>不做账号</span><span><i>✕</i>不做云同步</span><span><i>✕</i>不开屏广告</span><span><i>✕</i>不远程失效</span><span><i>✕</i>不后台常驻</span><span><i>✕</i>不订阅</span><span><i>✕</i>不联网</span><span><i>✕</i>不采集数据</span><span><i>✕</i>不做账号</span><span><i>✕</i>不做云同步</span><span><i>✕</i>不开屏广告</span><span><i>✕</i>不远程失效</span><span><i>✕</i>不后台常驻</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ 三律 ═══════════ -->
+<section id="laws">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="num">01 / THE THREE LAWS</span>
+      <h2>三律</h2>
+      <p>工坊的一切出品遵守三条铁律。它们不是隐私政策式的承诺，而是可以亲手验证的事实。</p>
+    </div>
+    <div class="laws-grid">
+      <article class="law-card reveal d1">
+        <span class="ghost">壹</span>
+        <span class="law-no">第一律</span>
+        <h3>绝对单机</h3>
+        <p class="law-sub">数据即文件</p>
+        <p>所有数据存储为本地文件：在你的文件管理器里<b>看得见、备得了份、带得走</b>。功能 100% 在本机完成——无账号、无激活服务器、无云依赖。</p>
+        <div class="law-verify">打开系统文件管理器，找到应用数据目录——<b>它就是一个普通文件夹</b>，复制即备份。</div>
+      </article>
+      <article class="law-card reveal d2">
+        <span class="ghost">贰</span>
+        <span class="law-no">第二律</span>
+        <h3>零网络权限</h3>
+        <p class="law-sub">想联网也做不到</p>
+        <p>应用<b>不申请网络权限</b>：鸿蒙商店详情页的权限列表里没有「网络」，Windows 版提供抓包自证教程。不是"我们不联网"，是<b>系统层面联不了</b>。</p>
+        <div class="perm-box">
+          <div class="perm-title"><span class="dots"><i></i><i></i><i></i></span>权限申请清单 · 商店详情页可见</div>
+          <div class="perm-row"><span>网络 INTERNET</span><span class="no">✕ 未申请</span></div>
+          <div class="perm-row"><span>通知</span><span class="yes">✓ 用户授权</span></div>
+          <div class="perm-row"><span>存储</span><span class="yes">✓ 仅本机文件</span></div>
+          <div class="perm-row"><span>位置 / 相机 / 麦克风</span><span class="no">✕ 未申请</span></div>
+        </div>
+      </article>
+      <article class="law-card reveal d3">
+        <span class="ghost">叁</span>
+        <span class="law-no">第三律</span>
+        <h3>永久可用</h3>
+        <p class="law-sub">停更即开源</p>
+        <p>已购版本<b>永久可用、永久可重装</b>：不设订阅、没有激活服务器，想远程失效也做不到。任一应用<b>连续 12 个月无更新</b>，30 天内以 MIT 协议开源全部源代码。</p>
+        <div class="law-verify">维护状态在下方<b>「维护面板」</b>随时公示；开源保底条款全文见<b>第 04 节</b>。</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 自证教程 ═══════════ -->
+<section id="verify" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="num">02 / VERIFY IT YOURSELF</span>
+      <h2>别信我，去验证</h2>
+      <p>隐私政策是承诺，权限列表是系统强制的事实。四个步骤，任何人都能亲手确认第二律。</p>
+    </div>
+    <div class="verify-grid">
+      <div class="verify-card reveal d1">
+        <h3>鸿蒙手机 / 平板 <span class="plat">HARMONYOS</span></h3>
+        <p>应用市场详情页直接展示权限申请清单</p>
+        <ol class="steps">
+          <li>打开<b>华为应用市场</b>，搜索任一守一应用</li>
+          <li>进入应用<b>详情页</b>，下拉找到「权限」</li>
+          <li>查看权限列表——<b>没有「网络」</b></li>
+          <li>第二律成立：系统强制，应用无法绕过</li>
+        </ol>
+      </div>
+      <div class="verify-card reveal d2">
+        <h3>Windows 电脑 <span class="plat">WINDOWS</span></h3>
+        <p>断网测试 + 抓包观察，双保险</p>
+        <ol class="steps">
+          <li>防火墙<b>出站规则</b>中屏蔽该应用</li>
+          <li>全部功能照常使用——<b>单机软件断网无损</b></li>
+          <li>或用 <b>GlassWire / Wireshark</b> 观察任意时长</li>
+          <li>出站请求数为 <b>0</b>（逐步图文教程随产品附上）</li>
+        </ol>
+      </div>
+    </div>
+    <div class="why-card reveal">
+      <h4>为什么「权限列表」比「隐私政策」可信</h4>
+      <p>隐私政策是文本，写什么全凭自觉；权限列表由操作系统强制执行——一个没有网络权限的应用，连一个字节都发不出去。我把承诺放在系统管得住的地方。</p>
+    </div>
+    <div class="bounty reveal">
+      <div class="amount">¥ 1,000</div>
+      <h4>抓 包 悬 赏</h4>
+      <p>用任何抓包工具证明任一守一应用发出网络请求（需提供可复现步骤），赏金一千元。真零联网，才有底气开门迎客。</p>
+      <div class="bounty-note">· 自首个产品发布之日起生效 · 最终解释权归守一工坊 ·</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 永不做清单 ═══════════ -->
+<section id="never">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="num">03 / NEVER LIST</span>
+      <h2>永远不做清单</h2>
+      <p>克制比功能丰富更重要。以下事项，写进工坊宪法，不因任何理由破例。</p>
+    </div>
+    <div class="never-grid reveal">
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-01</span><div><b>不做订阅制</b><span>一次买断，永久授权</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-02</span><div><b>不做账号系统</b><span>没有注册，没有登录，没有密码找回</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-03</span><div><b>不申请网络权限</b><span>想联网也做不到</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-04</span><div><b>不做云同步</b><span>数据即文件，放你自己的网盘就是同步</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-05</span><div><b>不采集任何数据</b><span>没有统计 SDK，没有埋点，没有崩溃上传</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-06</span><div><b>不做开屏广告与弹窗</b><span>打开即用，不被打断</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-07</span><div><b>不远程失效</b><span>没有激活服务器，想失效也做不到</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-08</span><div><b>不开机自启、不后台常驻</b><span>你不开它，它不存在</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-09</span><div><b>不绑定单一生态</b><span>数据可导出为通用格式，随时迁走</span></div></div>
+      <div class="never-item"><span class="x">✕</span><span class="ni-no">N-10</span><div><b>不承诺做不到的事</b><span>没写进三律的，不写进宣传</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 应用 ═══════════ -->
+<section id="apps" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="num">04 / WORKS</span>
+      <h2>出品</h2>
+      <p>每个工具只解决一件事。每月一款，沿三律出品。</p>
+    </div>
+    <div class="apps-grid">
+      <article class="app-card reveal d1">
+        <div class="app-icon">📅</div>
+        <h3>订阅管家</h3>
+        <p class="app-meta">HARMONYOS · 买断制</p>
+        <p>记下每一笔自动续费，到期本地提醒。桌面卡片直接显示「下一笔要扣的钱」。你的账单，凭什么存在别人的服务器上。</p>
+        <span class="status-pill status-dev">开发中</span>
+      </article>
+      <article class="app-card ghost reveal d2">
+        <p class="mono">NEXT&nbsp;/&nbsp;每月一款</p>
+        <p>下一个工具在路上<br>候选：本地压缩匠 · 文件查看器 · 记事本归档器</p>
+      </article>
+      <article class="app-card ghost reveal d3">
+        <p class="mono">BUNDLE&nbsp;/&nbsp;规划中</p>
+        <p>全家桶：全部工具一次买断<br>老用户永久半价</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 维护面板 ═══════════ -->
+<section id="panel">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="num">05 / MAINTENANCE</span>
+      <h2>维护面板</h2>
+      <p>每一款在售应用的状态与最近更新日期，实时公示。这张表，就是第三律「维护公示」本身。</p>
+    </div>
+    <div class="panel-wrap reveal">
+      <div class="panel-bar"><span class="live"></span>LIVE&nbsp;·&nbsp;每次发版自动刷新</div>
+      <table class="maint">
+        <thead><tr><th>应用</th><th>平台</th><th>状态</th><th>最近更新</th><th>备注</th></tr></thead>
+        <tbody>
+          <tr><td>订阅管家</td><td class="mono">HarmonyOS</td><td><span class="st dev">开发中</span></td><td class="mono">2026-09</td><td>首个版本开发中，首发以上架为准</td></tr>
+          <tr><td>—</td><td class="mono">—</td><td><span class="st dev">每月一款</span></td><td class="mono">—</td><td>更多应用上架后列入此表</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-legend reveal">
+      <span><span class="st active" style="margin-right:6px"></span>活跃开发 · 持续迭代</span>
+      <span><span class="st fix" style="margin-right:6px"></span>仅修复 · 只修崩溃级问题</span>
+      <span><span class="st eol" style="margin-right:6px"></span>停更 · 已触发开源保底</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 条款 ═══════════ -->
+<section id="clause" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="num">06 / GUARANTEE</span>
+      <h2>开源保底条款</h2>
+      <p>「我若停更，代码归你们。」你不需要相信我的意志力，只需要相信一条公开规则。</p>
+    </div>
+    <div class="clause-card reveal">
+      <h3>开源保底条款</h3>
+      <p class="clause-sub">OPEN-SOURCE&nbsp;FALLBACK&nbsp;CLAUSE&nbsp;·&nbsp;V1.0&nbsp;·&nbsp;2026-09</p>
+      <div class="clause-item"><span class="cno">§1</span><p>任一在售应用<b>连续十二（12）个月</b>未发布任何更新版本，开发者将在<b>三十（30）日内</b>将该应用发布时的完整对应源代码，以 <b>MIT 协议</b>向公众开放。</p></div>
+      <div class="clause-item"><span class="cno">§2</span><p>停更应用仍在应用商店与官网<b>持续提供下载</b>，已购用户永久可重新安装，功能不受影响。</p></div>
+      <div class="clause-item"><span class="cno">§3</span><p>本条款对条款发布之日前后的<b>全部应用一体生效</b>，不经公告不得撤销或加严限制。</p></div>
+      <div class="clause-item"><span class="cno">§4</span><p>各应用维护状态于本站「维护面板」<b>随时公示</b>，公示本身即本条款的一部分。</p></div>
+      <svg class="clause-seal" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#c2402a"/><text x="32" y="29" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">守</text><text x="32" y="55" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">一</text></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 关于 ═══════════ -->
+<section id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="num">07 / ABOUT</span>
+      <h2>关于工坊</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal d1">
+        <p><b>守一工坊是一个人的软件工坊。</b>名字取自道家「守一存真」——一生只做一件事，一人只守一个诺。</p>
+        <p>这里出品的每个工具：只解决一个问题、绝对单机、零网络权限、永久可用。<b>克制比功能丰富更重要</b>——用户已经有太多「什么都能做」的软件，缺的是打开就能用、用完就能忘的工具。</p>
+        <p>三律是工坊的宪法，写在上面，也写进每个应用的权限列表里。如果我哪天停更了，条款会替我履约：<b>代码开源，工具永生。</b></p>
+      </div>
+      <div class="about-facts reveal d2">
+        <div class="fact"><span>工坊形态</span><b>一人公司</b></div>
+        <div class="fact"><span>出品节奏</span><b>每月一款</b></div>
+        <div class="fact"><span>商业模式</span><b>买断制</b></div>
+        <div class="fact"><span>服务器</span><b>0 台</b></div>
+        <div class="fact"><span>数据采集</span><b>0 字节</b></div>
+        <div class="mail"><a href="mailto:hi@shouyigongfang.cn">hi@shouyigongfang.cn</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 页脚 ═══════════ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <svg class="seal" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#c2402a"/><text x="32" y="29" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">守</text><text x="32" y="55" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">一</text></svg>
+        <p>守一工坊 · 一个人的软件工坊<br>绝对单机 / 零网络权限 / 永久可用</p>
+      </div>
+      <div>
+        <h5>索引</h5>
+        <ul>
+          <li><a href="#laws">三律</a></li>
+          <li><a href="#verify">自证教程</a></li>
+          <li><a href="#never">永不做清单</a></li>
+          <li><a href="#apps">出品应用</a></li>
+          <li><a href="#clause">开源保底条款</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>声明</h5>
+        <p class="foot-note">本页面为<em>单个 HTML 文件</em>：无外部请求、无统计脚本、无 Cookie、无字体 CDN——右键「查看网页源代码」即可验证。官网也守三律。</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr">2026</span> 守一工坊</span>
+      <span>ICP备XXXXXXXX号 <!-- 备案下来后替换 --></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// 主题切换（暗色默认，记忆偏好）
+const root=document.documentElement,btn=document.getElementById('themeBtn');
+const saved=localStorage.getItem('theme');
+if(saved==='light'){root.dataset.theme='light';btn.textContent='☀'}
+btn.addEventListener('click',()=>{
+  const light=root.dataset.theme==='light';
+  root.dataset.theme=light?'dark':'light';
+  btn.textContent=light?'◐':'☀';
+  try{localStorage.setItem('theme',light?'dark':'light')}catch(e){}
+});
+// 滚动入场动画
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// 年份
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
