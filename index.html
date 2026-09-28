@@ -415,8 +415,8 @@ footer ul a:hover{color:var(--text)}
         <span class="law-no">第一律</span>
         <h3>绝对单机</h3>
         <p class="law-sub">数据即文件</p>
-        <p>所有数据存储为本地文件：在你的文件管理器里<b>看得见、备得了份、带得走</b>。功能 100% 在本机完成——无账号、无激活服务器、无云依赖。</p>
-        <div class="law-verify">打开系统文件管理器，找到应用数据目录——<b>它就是一个普通文件夹</b>，复制即备份。</div>
+        <p>所有数据存储为本地文件，<b>备得了份、带得走</b>。功能 100% 在本机完成——无账号、无激活服务器、无云依赖；导出走系统分享面板，发不发、发给谁，你说了算。</p>
+        <div class="law-verify">鸿蒙：应用内一键<b>导出 JSON / CSV</b>，经系统分享面板存到你指定的位置——全程零权限。Windows：数据目录就是一个<b>普通文件夹</b>，复制即备份。</div>
       </article>
       <article class="law-card reveal d2">
         <span class="ghost">贰</span>
@@ -427,9 +427,9 @@ footer ul a:hover{color:var(--text)}
         <div class="perm-box">
           <div class="perm-title"><span class="dots"><i></i><i></i><i></i></span>权限申请清单 · 商店详情页可见</div>
           <div class="perm-row"><span>网络 INTERNET</span><span class="no">✕ 未申请</span></div>
-          <div class="perm-row"><span>通知</span><span class="yes">✓ 用户授权</span></div>
-          <div class="perm-row"><span>存储</span><span class="yes">✓ 仅本机文件</span></div>
-          <div class="perm-row"><span>位置 / 相机 / 麦克风</span><span class="no">✕ 未申请</span></div>
+          <div class="perm-row"><span>存储 / 位置 / 相机 / 麦克风</span><span class="no">✕ 未申请</span></div>
+          <div class="perm-row"><span>数据读写</span><span class="yes">仅限应用沙箱 · 无需任何权限</span></div>
+          <div class="perm-row"><span>通知（代理提醒）</span><span class="yes">✓ 系统授权 · 安装即授予，不弹窗</span></div>
         </div>
       </article>
       <article class="law-card reveal d3">
@@ -437,8 +437,8 @@ footer ul a:hover{color:var(--text)}
         <span class="law-no">第三律</span>
         <h3>永久可用</h3>
         <p class="law-sub">停更即开源</p>
-        <p>已购版本<b>永久可用、永久可重装</b>：不设订阅、没有激活服务器，想远程失效也做不到。任一应用<b>连续 12 个月无更新</b>，30 天内以 MIT 协议开源全部源代码。</p>
-        <div class="law-verify">维护状态在下方<b>「维护面板」</b>随时公示；开源保底条款全文见<b>第 04 节</b>。</div>
+        <p>已购版本<b>永久可用、永久可重装</b>：不设订阅、没有激活服务器，想远程失效也做不到。任一应用<b>连续 12 个月无任何版本更新</b>，30 天内开源全部自有源代码——MIT 协议，第三方组件按原协议附清单。</p>
+        <div class="law-verify">维护状态在下方<b>「维护面板」</b>随时公示；条款全文见<b>第 06 节</b>，并同步写入<b>商店简介与应用内关于页</b>——不因本站存亡而失效。</div>
       </article>
     </div>
   </div>
@@ -481,8 +481,13 @@ footer ul a:hover{color:var(--text)}
     <div class="bounty reveal">
       <div class="amount">¥ 1,000</div>
       <h4>抓 包 悬 赏</h4>
-      <p>用任何抓包工具证明任一守一应用发出网络请求（需提供可复现步骤），赏金一千元。真零联网，才有底气开门迎客。</p>
-      <div class="bounty-note">· 自首个产品发布之日起生效 · 最终解释权归守一工坊 ·</div>
+      <p>用任何抓包工具证明任一守一应用发出网络请求，赏金一千元。裁定标准只有三条，满足即付。真零联网，才有底气开门迎客。</p>
+      <p style="text-align:left;max-width:560px;margin:14px auto 0;font-size:14px;line-height:2">
+        一、请求<b>归属于守一应用</b>——以抓包工具显示的应用 / 进程为准（鸿蒙按 UID / 包名），系统服务与其他应用的流量不算；<br>
+        二、提供<b>完整可复现步骤</b>：设备型号、系统版本、工具与配置、操作顺序；<br>
+        三、写明<b>捕获时间窗</b>，可重复验证。
+      </p>
+      <div class="bounty-note">· 自首个产品发布之日起生效 · 裁定只认上列三条，不存在其他解释 ·</div>
     </div>
   </div>
 </section>
@@ -574,11 +579,12 @@ footer ul a:hover{color:var(--text)}
     </div>
     <div class="clause-card reveal">
       <h3>开源保底条款</h3>
-      <p class="clause-sub">OPEN-SOURCE&nbsp;FALLBACK&nbsp;CLAUSE&nbsp;·&nbsp;V1.0&nbsp;·&nbsp;2026-09</p>
-      <div class="clause-item"><span class="cno">§1</span><p>任一在售应用<b>连续十二（12）个月</b>未发布任何更新版本，开发者将在<b>三十（30）日内</b>将该应用发布时的完整对应源代码，以 <b>MIT 协议</b>向公众开放。</p></div>
+      <p class="clause-sub">OPEN-SOURCE&nbsp;FALLBACK&nbsp;CLAUSE&nbsp;·&nbsp;V1.1&nbsp;·&nbsp;2026-09</p>
+      <div class="clause-item"><span class="cno">§1</span><p>任一在售应用<b>连续十二（12）个月</b>未在应用商店发布任何更新版本，开发者将在<b>三十（30）日内</b>将该应用发布时的完整自有源代码，以 <b>MIT 协议</b>向公众开放；第三方组件按其原协议附清单一并公开。应用<b>下架</b>的，自下架之日起算连续十二（12）个月，同样触发——<b>下架不免除本条款</b>。<b>「更新」以应用商店实际发布的任意版本为准——包括只修 Bug 的小版本。规则在此写明，不设隐藏条款。</b></p></div>
       <div class="clause-item"><span class="cno">§2</span><p>停更应用仍在应用商店与官网<b>持续提供下载</b>，已购用户永久可重新安装，功能不受影响。</p></div>
       <div class="clause-item"><span class="cno">§3</span><p>本条款对条款发布之日前后的<b>全部应用一体生效</b>，不经公告不得撤销或加严限制。</p></div>
       <div class="clause-item"><span class="cno">§4</span><p>各应用维护状态于本站「维护面板」<b>随时公示</b>，公示本身即本条款的一部分。</p></div>
+      <div class="clause-item"><span class="cno">§5</span><p>本条款全文同步写入<b>应用商店简介与应用内「关于」页</b>，与官网具有同等效力——即使本站不可访问，条款依然可查、依然有效。</p></div>
       <svg class="clause-seal" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#c2402a"/><text x="32" y="29" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">守</text><text x="32" y="55" font-size="25" text-anchor="middle" fill="#fff" font-family="KaiTi,STKaiti,serif" font-weight="bold">一</text></svg>
     </div>
   </div>
