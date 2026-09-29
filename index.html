@@ -258,6 +258,7 @@ section{padding:92px 0}
 }
 .status-pill::before{content:"";width:7px;height:7px;border-radius:50%}
 .status-dev{background:var(--amber-soft);color:var(--amber)}.status-dev::before{background:var(--amber)}
+.status-live{background:var(--ok-soft);color:var(--ok)}.status-live::before{background:var(--ok)}
 .status-soon{background:var(--bg2);color:var(--faint);border:1px solid var(--line)}.status-soon::before{background:var(--faint)}
 .app-card.ghost{
   border-style:dashed;background:transparent;display:flex;flex-direction:column;justify-content:center;text-align:center;
@@ -525,19 +526,22 @@ footer ul a:hover{color:var(--text)}
     </div>
     <div class="apps-grid">
       <article class="app-card reveal d1">
+        <div class="app-icon">🐾</div>
+        <h3>毛孩管家</h3>
+        <p class="app-meta">HARMONYOS · ¥6 买断</p>
+        <p>疫苗、驱虫、护理待办到期本地提醒，体重曲线与陪伴纪念卡。毛孩子的健康档案，凭什么存在别人的服务器上。</p>
+        <span class="status-pill status-live">已上架</span>
+      </article>
+      <article class="app-card reveal d2">
         <div class="app-icon">📅</div>
         <h3>订阅管家</h3>
         <p class="app-meta">HARMONYOS · 买断制</p>
         <p>记下每一笔自动续费，到期本地提醒。桌面卡片直接显示「下一笔要扣的钱」。你的账单，凭什么存在别人的服务器上。</p>
-        <span class="status-pill status-dev">开发中</span>
-      </article>
-      <article class="app-card ghost reveal d2">
-        <p class="mono">NEXT&nbsp;/&nbsp;每月一款</p>
-        <p>下一个工具在路上<br>候选：本地压缩匠 · 文件查看器 · 记事本归档器</p>
+        <span class="status-pill status-dev">上架审核中</span>
       </article>
       <article class="app-card ghost reveal d3">
-        <p class="mono">BUNDLE&nbsp;/&nbsp;规划中</p>
-        <p>全家桶：全部工具一次买断<br>老用户永久半价</p>
+        <p class="mono">NEXT&nbsp;/&nbsp;每月一款</p>
+        <p>下一个工具在路上</p>
       </article>
     </div>
   </div>
@@ -549,15 +553,15 @@ footer ul a:hover{color:var(--text)}
     <div class="sec-head reveal">
       <span class="num">05 / MAINTENANCE</span>
       <h2>维护面板</h2>
-      <p>每一款在售应用的状态与最近更新日期，实时公示。这张表，就是第三律「维护公示」本身。</p>
+      <p>每一款应用的上架状态与最近更新日期，实时公示。这张表，就是第三律「维护公示」本身。</p>
     </div>
     <div class="panel-wrap reveal">
       <div class="panel-bar"><span class="live"></span>LIVE&nbsp;·&nbsp;每次发版自动刷新</div>
       <table class="maint">
         <thead><tr><th>应用</th><th>平台</th><th>状态</th><th>最近更新</th><th>备注</th></tr></thead>
         <tbody>
-          <tr><td>订阅管家</td><td class="mono">HarmonyOS</td><td><span class="st dev">开发中</span></td><td class="mono">2026-09</td><td>首个版本开发中，首发以上架为准</td></tr>
-          <tr><td>—</td><td class="mono">—</td><td><span class="st dev">每月一款</span></td><td class="mono">—</td><td>更多应用上架后列入此表</td></tr>
+          <tr><td>毛孩管家</td><td class="mono">HarmonyOS</td><td><span class="st active">已上架</span></td><td class="mono">2026-09</td><td>v1.0 发售 · ¥6 买断制</td></tr>
+          <tr><td>订阅管家</td><td class="mono">HarmonyOS</td><td><span class="st dev">上架审核中</span></td><td class="mono">2026-09</td><td>首个版本已提交华为应用市场审核</td></tr>
         </tbody>
       </table>
     </div>
@@ -565,6 +569,7 @@ footer ul a:hover{color:var(--text)}
       <span><span class="st active" style="margin-right:6px"></span>活跃开发 · 持续迭代</span>
       <span><span class="st fix" style="margin-right:6px"></span>仅修复 · 只修崩溃级问题</span>
       <span><span class="st eol" style="margin-right:6px"></span>停更 · 已触发开源保底</span>
+      <span>· 审核中 / 准备中 = 尚未开售</span>
     </div>
   </div>
 </section>
