@@ -260,6 +260,11 @@ section{padding:92px 0}
 .status-dev{background:var(--amber-soft);color:var(--amber)}.status-dev::before{background:var(--amber)}
 .status-live{background:var(--ok-soft);color:var(--ok)}.status-live::before{background:var(--ok)}
 .status-soon{background:var(--bg2);color:var(--faint);border:1px solid var(--line)}.status-soon::before{background:var(--faint)}
+a.app-card{display:block}
+.app-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}
+.app-row .status-pill{margin-top:0}
+.store-link{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.06em;white-space:nowrap;transition:opacity .25s}
+a.app-card:hover .store-link{text-decoration:underline}
 .app-card.ghost{
   border-style:dashed;background:transparent;display:flex;flex-direction:column;justify-content:center;text-align:center;
 }
@@ -525,20 +530,26 @@ footer ul a:hover{color:var(--text)}
       <p>每个工具只解决一件事。每月一款，沿三律出品。</p>
     </div>
     <div class="apps-grid">
-      <article class="app-card reveal d1">
+      <a class="app-card reveal d1" href="https://appgallery.huawei.com/app/detail?id=cn.shouyigongfang.petcare" target="_blank" rel="noopener">
         <div class="app-icon">🐾</div>
         <h3>毛孩管家</h3>
         <p class="app-meta">HARMONYOS · ¥6 买断</p>
         <p>疫苗、驱虫、护理待办到期本地提醒，体重曲线与陪伴纪念卡。毛孩子的健康档案，凭什么存在别人的服务器上。</p>
-        <span class="status-pill status-live">已上架</span>
-      </article>
-      <article class="app-card reveal d2">
+        <div class="app-row">
+          <span class="status-pill status-live">已上架</span>
+          <span class="store-link">应用市场 ↗</span>
+        </div>
+      </a>
+      <a class="app-card reveal d2" href="https://appgallery.huawei.com/app/detail?id=cn.shouyigongfang.giftledger" target="_blank" rel="noopener">
         <div class="app-icon">🧧</div>
         <h3>随礼管家</h3>
         <p class="app-meta">HARMONYOS · ¥6 买断</p>
         <p>红白事的礼金往来：随礼记账、大写唱账、封簿谢帖。人情的账，凭什么存在别人的服务器上。</p>
-        <span class="status-pill status-live">已上架</span>
-      </article>
+        <div class="app-row">
+          <span class="status-pill status-live">已上架</span>
+          <span class="store-link">应用市场 ↗</span>
+        </div>
+      </a>
       <article class="app-card reveal d3">
         <div class="app-icon">📅</div>
         <h3>订阅管家</h3>
