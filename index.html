@@ -176,7 +176,6 @@ section{padding:92px 0}
 .perm-box .perm-title .dots i{width:9px;height:9px;border-radius:50%;background:var(--line2)}
 .perm-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--line);color:var(--muted)}
 .perm-row:last-child{border-bottom:0}
-.perm-row .yes{color:var(--ok)}
 .perm-row .no{color:var(--accent-strong);font-weight:600}
 
 /* ═══════════════ 自证教程 ═══════════════ */
@@ -242,6 +241,7 @@ section{padding:92px 0}
 .app-card{
   border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:var(--card);
   transition:all .35s;position:relative;
+  display:flex;flex-direction:column;
 }
 .app-card:hover{transform:translateY(-4px);border-color:var(--line2)}
 .app-card .app-icon{
@@ -260,8 +260,8 @@ section{padding:92px 0}
 .status-dev{background:var(--amber-soft);color:var(--amber)}.status-dev::before{background:var(--amber)}
 .status-live{background:var(--ok-soft);color:var(--ok)}.status-live::before{background:var(--ok)}
 .status-soon{background:var(--bg2);color:var(--faint);border:1px solid var(--line)}.status-soon::before{background:var(--faint)}
-a.app-card{display:block}
-.app-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}
+/* 卡片为纵向 flex，底部状态行 margin-top:auto 吸底——三卡简介行数不一时状态胶囊仍横向对齐 */
+.app-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:16px}
 .app-row .status-pill{margin-top:0}
 .store-link{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.06em;white-space:nowrap;transition:opacity .25s}
 a.app-card:hover .store-link{text-decoration:underline}
@@ -429,14 +429,12 @@ footer ul a:hover{color:var(--text)}
         <span class="law-no">第二律</span>
         <h3>零网络权限</h3>
         <p class="law-sub">想联网也做不到</p>
-        <p>应用<b>不申请网络权限</b>：鸿蒙商店详情页的权限列表里没有「网络」，Windows 版提供抓包自证教程。不是"我们不联网"，是<b>系统层面联不了</b>。</p>
+        <p>全系应用<b>零网络权限申请</b>。</p>
         <div class="perm-box">
           <div class="perm-title"><span class="dots"><i></i><i></i><i></i></span>权限申请清单 · 商店详情页可见</div>
           <div class="perm-row"><span>网络 INTERNET</span><span class="no">✕ 未申请</span></div>
-          <div class="perm-row"><span>存储 / 位置 / 相机 / 麦克风</span><span class="no">✕ 未申请</span></div>
-          <div class="perm-row"><span>数据读写</span><span class="yes">仅限应用沙箱 · 无需任何权限</span></div>
-          <div class="perm-row"><span>通知（代理提醒）</span><span class="yes">✓ 系统授权 · 安装即授予，不弹窗</span></div>
         </div>
+        <div class="law-verify">鸿蒙：应用市场<b>详情页</b>的「权限」列表里<b>没有「网络」</b>。Windows：断网后全功能照常，抓包出站为 <b>0</b>——四步图文见<b>第 02 节</b>。</div>
       </article>
       <article class="law-card reveal d3">
         <span class="ghost">叁</span>
@@ -555,7 +553,9 @@ footer ul a:hover{color:var(--text)}
         <h3>订阅管家</h3>
         <p class="app-meta">HARMONYOS · 买断制</p>
         <p>记下每一笔自动续费，到期本地提醒。桌面卡片直接显示「下一笔要扣的钱」。你的账单，凭什么存在别人的服务器上。</p>
-        <span class="status-pill status-dev">上架审核中</span>
+        <div class="app-row">
+          <span class="status-pill status-dev">上架审核中</span>
+        </div>
       </article>
     </div>
   </div>
