@@ -236,7 +236,7 @@ section{padding:92px 0}
 .never-item div span{font-size:12.5px;color:var(--faint)}
 
 /* ═══════════════ 应用 ═══════════════ */
-.apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.apps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
 @media(max-width:900px){.apps-grid{grid-template-columns:1fr}}
 .app-card{
   border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:var(--card);
@@ -358,7 +358,7 @@ footer ul a:hover{color:var(--text)}
 /* ═══════════════ 入场动画 ═══════════════ */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
 .reveal.in{opacity:1;transform:none}
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
@@ -557,6 +557,16 @@ footer ul a:hover{color:var(--text)}
           <span class="store-link">应用市场 ↗</span>
         </div>
       </a>
+      <a class="app-card reveal d4" href="https://appgallery.huawei.com/app/detail?id=cn.shouyigongfang.babyjournal" target="_blank" rel="noopener">
+        <div class="app-icon"><img src="assets/icon-babyjournal.png" alt="孩提应用图标"></div>
+        <h3>孩提</h3>
+        <p class="app-meta">HARMONYOS · ¥6 买断</p>
+        <p>成长时间线、里程碑脚印、身高体重曲线，一页页排成可冲印的成长档案。宝宝的童年，凭什么存在别人的服务器上。</p>
+        <div class="app-row">
+          <span class="status-pill status-live">已上架</span>
+          <span class="store-link">应用市场 ↗</span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -577,6 +587,7 @@ footer ul a:hover{color:var(--text)}
           <tr><td>毛孩管家</td><td class="mono">HarmonyOS</td><td><span class="st active">已上架</span></td><td class="mono">2026-09</td><td>v1.0 发售 · ¥6 买断制</td></tr>
           <tr><td>随礼管家</td><td class="mono">HarmonyOS</td><td><span class="st active">已上架</span></td><td class="mono">2026-09</td><td>v1.0 发售 · ¥6 买断制</td></tr>
           <tr><td>订阅有数</td><td class="mono">HarmonyOS</td><td><span class="st active">已上架</span></td><td class="mono">2026-10</td><td>v1.0 发售 · ¥6 买断制</td></tr>
+          <tr><td>孩提</td><td class="mono">HarmonyOS</td><td><span class="st active">已上架</span></td><td class="mono">2026-10</td><td>v1.0 发售 · ¥6 买断制</td></tr>
         </tbody>
       </table>
     </div>
